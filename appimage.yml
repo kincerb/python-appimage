@@ -1,0 +1,15 @@
+app: python-app-image
+binpatch: true
+
+build:
+  packages:
+    - linuxdeploy
+  git:
+    - https://github.com/python/cpython/tree/3.9
+
+script:
+  - cd $BUILD_SOURCE_DIR/python
+  - make
+  - make INSTALL_ROOT=$BUILD_APPDIR install
+  - unset LD_LIBRARY_PATH
+  - linuxdeploy $BUILD_APPDIR/
