@@ -3,8 +3,9 @@ binpatch: true
 
 build:
   packages:
-    - expat-devel
-    - keyutils-libs-devel
+    - make
+    - libexpat-devel
+    - keyutils-devel
     - krb5-devel
     - zlib-devel
     - ncurses-devel
@@ -14,19 +15,20 @@ build:
     - libcom_err-devel
     - libuuid-devel
     - libcurl-devel
-    - kernel-headers
+    - kernel-devel
     - tk-devel
-    - bzip2-devel
-    - python-devel
-    - sqlite-devel
+    - libzip-devel
+    - python3-devel
+    - sqlite3-devel
+    - libopenssl-1_1-devel
     - linuxdeploy
   git:
     - https://github.com/python/cpython/tree/3.9
 
 script:
   - cd $BUILD_SOURCE_DIR/python
-  - CPPFLAGS="-I/usr/local/sqlite3/include"
-  - LDFLAGS="-Wl,-rpath=/usr/local/sqlite3/lib"
+  # - CPPFLAGS="-I/usr/local/sqlite3/include"
+  # - LDFLAGS="-Wl,-rpath=/usr/local/sqlite3/lib"
   - ./configure --enable-optimizations --enable-loadable-sqlite-extensions --with-pydebug
   - make
   - make INSTALL_ROOT=$BUILD_APPDIR install
