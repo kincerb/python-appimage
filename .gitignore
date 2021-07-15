@@ -1,0 +1,3 @@
+# ignore anything I put in a scratch or tmp directory
+scratch*
+tmp*
