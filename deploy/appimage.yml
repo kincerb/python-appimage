@@ -27,8 +27,6 @@ build:
 
 script:
   - cd $BUILD_SOURCE_DIR
-  # - CPPFLAGS="-I/usr/local/sqlite3/include"
-  # - LDFLAGS="-Wl,-rpath=/usr/local/sqlite3/lib"
   - ./configure --enable-optimizations --enable-loadable-sqlite-extensions --with-pydebug
   - make
   - make INSTALL_ROOT=$BUILD_APPDIR install
