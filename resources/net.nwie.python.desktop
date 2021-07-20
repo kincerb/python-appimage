@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=python-nwie-appimage
+GenericName=Python AppImage
+NoDisplay=true
+Exec=python3
+Comment=Python shipped as a standalone AppImage
+Icon=python-logo-flattened
+Categories=Development;
+Terminal=true
