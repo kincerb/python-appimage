@@ -116,7 +116,9 @@ create your AppImage.
 | File | Description |
 |------|-------------|
 | [AppRun](./resources/AppRun) | Bootstraps environment and runs desired executable. |
+<!-- markdownlint-disable-next-line MD013 -->
 | [desktop entry](./resources/io.nucoder.python.desktop)[ | Desktop file to create Application entry. |
+<!-- markdownlint-disable-next-line MD013 -->
 | [python-logo-flattened.png](./resources/python-logo-flattened.png) | Icon to use for Application entry. |
 
 ## Get latest linuxdeploy AppImage
