@@ -9,7 +9,7 @@ a python distribution.
 
 ```bash
 mkdir -p AppDir/{src,usr}
-
+```
 
 ## Compile newer libraries for openssl and sqlite if needed (optional)
 
