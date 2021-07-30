@@ -5,13 +5,23 @@ a python distribution.
 
 ## Table of Contents
 
-## Build skeleton AppDir
+- [Creating the AppImage](#creating-the-appimage)
+  - [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
+
+## Creating the AppImage
+
+An AppImage is created from an **AppDir**, which is the root of your package.
+You treat the **AppDir** like a [chroot](https://wiki.archlinux.org/title/chroot)
+in a way. Any binaries and libraries that your program can't rely upon the host
+OS, must be packaged inside the **AppDir**.
+
+### Skeleton structure of an AppDir
 
 ```bash
 mkdir -p AppDir/{src,usr}
 ```
 
-## Compile newer libraries for openssl and sqlite if needed (optional)
+### Compile newer libraries for openssl and sqlite if needed (optional)
 
 Extract the source code into the `AppDir/src` directory. When using `cmake`,
 you ***must*** use the `DESTDIR` variable to set where you want
@@ -140,11 +150,6 @@ ARCH=x86_64 linuxdeploy-x86_64.AppImage \
 
 ## Links
 
-### Servers
-
-- [Personal Lab OBS](https://obs.lan)
-- [OpenSUSE Build Service](https://build.opensuse.org)
-
 ### Documentation
 
 - [AppImage Docs - Using the Open Build Service](https://docs.appimage.org/packaging-guide/hosted-services/opensuse-build-service.html#using-the-open-build-service)
@@ -154,4 +159,3 @@ ARCH=x86_64 linuxdeploy-x86_64.AppImage \
 
 - [appimage-builder - APT only](https://appimage-builder.readthedocs.io/en/latest/index.html)
 - [AppImageKit GitHub](https://github.com/AppImage/AppImageKit)
-
