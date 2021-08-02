@@ -5,11 +5,34 @@ a python distribution.
 
 ## Table of Contents
 
-- [AppImage Specification](#appimage-specification)
-- [Creating the AppImage](#creating-the-appimage)
-  - [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
+* [AppImage Specification](#appimage-specification)
+  + [Conformations](#confromations)
+* [Creating the AppImage](#creating-the-appimage)
+  + [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
 
 ## AppImage Specification
+
+We're concentrating on the [Type 2 image format](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#type-2-image-format),
+which is the newest that I'm aware.
+
+### Conformations
+
+This is not an exhaustive list, please see the link above for the full listing.
+
+* Valid [ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) executable
+* Have an appended filesystem that the ELF part can mount
+* When executed, mount the [AppImage](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#appimage) and
+execute the executable file `AppRun` contained in the root of the filesystem image
+* Not rely on any specific file name extension, although `.AppImage` is recommended
+  + The full naming schema recommended is `ApplicationName-$VERSION-$ARCH.AppImage`
+* Should not be encapsulated in another archive/container format during download or when stored
+* Work when spaces are used in its own filesystem path, file names, and in paths and filenames is uses
+* May embed [update information](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#update-information) in
+the ELF section `.upd_info`
+  + If the information in this location is not one of the known update information formats, then is should be empty
+      and/or ignored
+* May embed a signature in the ELF section `.sha256_sig`
+  + If this exists, it **MUST** either be empty or contain a valid digital signature
 
 ## Creating the AppImage
 
@@ -157,10 +180,11 @@ ARCH=x86_64 linuxdeploy-x86_64.AppImage \
 
 ### Documentation
 
-- [AppImage Docs - Using the Open Build Service](https://docs.appimage.org/packaging-guide/hosted-services/opensuse-build-service.html#using-the-open-build-service)
-- [AppImageKit - Reference Implementation](https://docs.appimage.org/introduction/software-overview.html#ref-appimagekit)
+* [AppImage Docs - Using the Open Build Service](https://docs.appimage.org/packaging-guide/hosted-services/opensuse-build-service.html#using-the-open-build-service)
+* [AppImageKit - Reference Implementation](https://docs.appimage.org/introduction/software-overview.html#ref-appimagekit)
 
 ### Tools
 
-- [appimage-builder - APT only](https://appimage-builder.readthedocs.io/en/latest/index.html)
-- [AppImageKit GitHub](https://github.com/AppImage/AppImageKit)
+* [appimage-builder - APT only](https://appimage-builder.readthedocs.io/en/latest/index.html)
+* [AppImageKit GitHub](https://github.com/AppImage/AppImageKit)
+
