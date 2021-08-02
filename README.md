@@ -5,8 +5,11 @@ a python distribution.
 
 ## Table of Contents
 
+- [AppImage Specification](#appimage-specification)
 - [Creating the AppImage](#creating-the-appimage)
-  - [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
+  - [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)(#skeleton-structure-of-an-appdir)
+
+## AppImage Specification
 
 ## Creating the AppImage
 
@@ -16,6 +19,8 @@ in a way. Any binaries and libraries that your program can't rely upon the host
 OS, must be packaged inside the **AppDir**.
 
 ### Skeleton structure of an AppDir
+
+## Build skeleton AppDir
 
 ```bash
 mkdir -p AppDir/{src,usr}
