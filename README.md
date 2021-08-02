@@ -7,7 +7,7 @@ a python distribution.
 
 - [AppImage Specification](#appimage-specification)
 - [Creating the AppImage](#creating-the-appimage)
-  - [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)(#skeleton-structure-of-an-appdir)
+  - [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
 
 ## AppImage Specification
 
