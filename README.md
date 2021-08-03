@@ -51,6 +51,12 @@ application
   + The icon identifier is set in the `Icon=` key of the `$APPNAME.desktop` file
   + These icon files **SHOULD** be given preference as the icon for the AppImage
   + May contain an `$APPICON.svg`, `$APPICON.svgz` or `$APPICON.png` in the root directory
+  + If the icon is a PNG, should be sized one of:
+    - 256x256
+    - 512x512
+    - 1024x1024
+* Contains a `.DirIcon` file as per the [AppDir](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#appdir)
+specification, which should be a 256x256 PNG file
 
 ### AppRun File
 
