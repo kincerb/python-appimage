@@ -60,6 +60,22 @@ specification, which should be a 256x256 PNG file
 
 ### AppRun File
 
+* Be executable and launch the
+[payload application](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#payload-application)
+either directly or indirectly
+* Be an ELF binary or an interpreted script
+  + If an ELF binary, it SHOULD have as few runtime dependencies as possible
+  + If an interpreted script, it SHOULD be written in a language which an interpreter can be assumed to be available on
+      every target system
+* Work even when stored in a filesystem path that contains spaces
+* Should pass the following through to the [payload application](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#payload-application):
+  + arguments
+  + environment variables
+* May `cd` to a directory inside the [AppImage](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#appimage)
+at runtime before executing the
+[payload application](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#payload-application),
+commonly `./usr/`
+
 ## Creating the AppImage
 
 An AppImage is created from an **AppDir**, which is the root of your package.
