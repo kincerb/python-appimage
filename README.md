@@ -5,17 +5,19 @@ a python distribution.
 
 ## Table of Contents
 
-* [AppImage Specification](#appimage-specification)
-  + [Conformations](#confromations)
+* [AppImage Layout / Specification](#appimage-layout-and-specification)
+  + [Specification](#specification)
+  + [Image Contents](#image-contents)
+  + [AppRun File](#apprun-file)
 * [Creating the AppImage](#creating-the-appimage)
   + [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
 
-## AppImage Specification
+## AppImage Layout and Specification
 
 We're concentrating on the [Type 2 image format](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#type-2-image-format),
 which is the newest that I'm aware.
 
-### Conformations
+### Specification
 
 This is not an exhaustive list, please see the link above for the full listing.
 
@@ -33,6 +35,24 @@ the ELF section `.upd_info`
       and/or ignored
 * May embed a signature in the ELF section `.sha256_sig`
   + If this exists, it **MUST** either be empty or contain a valid digital signature
+
+### Image Contents
+
+This section lists the contents of a filesystem image that can be created into an AppImage.
+**This infers that the contents are also a valid [AppDir](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#appdir)**.
+
+* Contains a file named `AppRun` in its root directory
+* Should contain a
+[payload application](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#payload-application)
+this is executed when the AppImage is executed
+* Contains exactly one `$APPNAME.desktop` file in its root directory with `$APPNAME` being the name of the payload
+application
+* Contains icon files in `usr/share/icons/hicolor` following the [Icon Theme Specification](https://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html)
+  + The icon identifier is set in the `Icon=` key of the `$APPNAME.desktop` file
+  + These icon files **SHOULD** be given preference as the icon for the AppImage
+  + May contain an `$APPICON.svg`, `$APPICON.svgz` or `$APPICON.png` in the root directory
+
+### AppRun File
 
 ## Creating the AppImage
 
