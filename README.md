@@ -6,9 +6,11 @@ a python distribution.
 ## Table of Contents
 
 * [AppImage Layout / Specification](#appimage-layout-and-specification)
+  + [Definitions](#definitions)
   + [Specification](#specification)
   + [Image Contents](#image-contents)
   + [AppRun File](#apprun-file)
+  + [Payload Application](#payload-application)
 * [Creating the AppImage](#creating-the-appimage)
   + [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
 
@@ -16,6 +18,23 @@ a python distribution.
 
 We're concentrating on the [Type 2 image format](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#type-2-image-format),
 which is the newest that I'm aware.
+
+### Definitions
+
+AppDir
+: Application directories as described [here](http://rox.sourceforge.net/desktop/AppDirs.html)
+AppImage
+: File format which can be used to deploy application software to Linux-based operating systems
+AppImageKit
+: Reference implementation for building AppImages - [github repo](https://github.com/probonopd/AppImageKit)
+.desktop file
+: Desktop Entry File following the [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/)
+Payload application
+: Software application contained inside an AppImage
+Target system(s)
+: Systems where the packaged software is intended to run
+zsync
+: File transfer algorithm which implements efficient download of delta content
 
 ### Specification
 
@@ -75,6 +94,8 @@ either directly or indirectly
 at runtime before executing the
 [payload application](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#payload-application),
 commonly `./usr/`
+
+### Payload Application
 
 ## Creating the AppImage
 
