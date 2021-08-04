@@ -11,6 +11,11 @@ a python distribution.
   + [Image Contents](#image-contents)
   + [AppRun File](#apprun-file)
   + [Payload Application](#payload-application)
+  + [AppStream](#appstream)
+  + [Update Information](#update-information)
+    - [zsync](#zsync)
+    - [GitHub Releases](#github-releases)
+  + [Desktop Integration](#desktop-integration)
 * [Creating the AppImage](#creating-the-appimage)
   + [Skeleton structure of an AppDir](#skeleton-structure-of-an-appdir)
 
@@ -96,6 +101,73 @@ at runtime before executing the
 commonly `./usr/`
 
 ### Payload Application
+
+See the [AppRun File](#apprun-file) section on ELF binary and interpreted language guidelines.
+
+It is **RECOMMENDED** that the
+[payload application](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#payload-application)
+and its dependencies are located in a `$PREFIX` directory tree inside the
+[AppDir](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#appdir) with `$PREFIX` commonly being `./usr/`.
+It's also **RECOMMENDED** that the `$PREFIX` directory tree inside the
+[AppDir](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#appdir) follows the
+[File System Hierarchy conventions for `/usr`](https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04.html).
+
+### AppStream
+
+An AppImage should ship AppStream metadata in `/usr/share/metainfo/$ID.appdata.xml` with `$ID` being the AppStream ID.
+This imformation allows the AppImage to be discoverable in application centers and/or application directory websites.
+
+### Update Information
+
+Update information may be embedded for exactly one transport mechanism. The two mechanisms are:
+
+* [zsync](#zsync)
+* [GitHub Releases](#github-releases)
+
+#### zsync
+
+The zsync transport requires a HTTP server that can hanle range requests. Its update information is in the form
+
+```bash
+zsync|https://server.domain/path/Application-latest-x86_64.AppImage.zsync
+```
+
+If an AppImage has update information embedded for this transport, then the following fields **MUST** be used;
+separated by a `|`:
+
+| Field | Type | Example | Comments |
+|-------|------|---------|----------|
+| Transport mechanism | String | `zsync` | zsync file and AppImage must be stored on compatible HTTP server |
+| zsync file URL | String | `https://server.domain/path/Application-latest-x86_64.AppImage.zsync` | URL to `.zsync`
+file (URL must not change from version to version) |
+
+For an overview on zsync and how to create `.zsync` files, go [here](http://zsync.moria.org.uk/).
+
+#### GitHub Releases
+
+The GitHub Releases transport extends the zsync transport in the is uses version infromation from GitHub Releases.
+Its update information is in the form:
+
+```bash
+gh-releases-zsync|kincerb|AppImages|latest|Python-*x86_64.AppImage.zsync
+```
+
+If an AppImage has update information embedded for this transport, then the following fields **MUST** be used;
+separated by a `|`:
+
+| Field | Type | Example | Comments |
+|-------|------|---------|----------|
+| Transport mechanism | String | `gh-releases-zsync` | zsync file and AppImage must be stored on on GitHub Releases |
+| GitHub username | String | `kincerb` | Name of GH user or organization where zsync file and AppImage are stored |
+| GitHub repository | String | `AppImages` | Name of GH repository in which the zsync file and AppImage are stored |
+| Release name | String | `latest` | Name of release, `latest` will automatically use the latest release as determined
+by the GitHub API |
+| Filename | String | `Python-*x86_64.AppImage.zsync` | Filename of zsync file on GutHub, `*` is a wildcard |
+
+### Desktop Integration
+
+More to come, see [upstream documentation](https://github.com/AppImage/AppImageSpec/blob/master/draft.md#desktop-integration)
+for more information.
 
 ## Creating the AppImage
 
