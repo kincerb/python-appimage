@@ -305,6 +305,8 @@ chmod a+x linuxdeploy-x86_64.AppImage
 ARCH=x86_64 linuxdeploy-x86_64.AppImage \
 --library=/lib64/libreadline.so \
 --library=/lib64/libhistory.so \
+--library=/lib64/libcurses.so \
+--library=/lib64/libcursesw.so \
 --appdir=AppDir \
 --icon-file=resources/python-logo-flattened.png \
 --desktop-file=resources/net.nwie.python.desktop \
