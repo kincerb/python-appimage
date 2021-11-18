@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        'rhel7'
+        label 'rhel7'
     }
     stages {
         stage('Fetch cpython source') {
