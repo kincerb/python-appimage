@@ -1,14 +1,15 @@
 import argparse
 import json
+import logging
+import logging.config
 import re
-import sys
-from pathlib import Path
+import urllib
+import urllib.parse
+import urllib.request
 
-import requests
+URI_BASE = 'https://api.github.com/repos/python/cpython/tags'
 
-
-URI_BASE = 'https://api.github.com/repos/python/cpython/tags?per_page=100&page={0}'
-CLEAN_REGEX = re.compile(r'^v?3\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)$') # Skip alpha, beta, release candidates, etc
+CLEAN_REGEX = re.compile(r'^v?3\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)$')  # Skip alpha, beta, release candidates, etc
 
 
 # def _basedir_finder():
@@ -34,25 +35,21 @@ CLEAN_REGEX = re.compile(r'^v?3\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)$') # Skip 
 #         json.dump(data, f)
 # 
 
-def get_versions(uri=URI_BASE):
-    page = 1
-    while True:
-        data = requests.get(uri.format(page)).json()
-#        print(data)
-        if not data:
-            break
-        if page > 2:
-            break
-        for tag in data:
-            yield tag.get('name')
-        page += 1
+def get_versions(uri: str = URI_BASE, limit: int = 50):
+    return
+
+
+def _get_api_json(uri: str, per_page: int = 1, page: int = 1) -> json:
+    params = urllib.parse.urlencode({'per_page': per_page, 'page': page})
+    with urllib.request.urlopen(f'{uri}?{params}') as f:
+        content = f.read().decode()
+    return json.loads(content)
 
 
 def clean_versions(versions):
     for version in versions:
         match = CLEAN_REGEX.match(version)
         if match:
-#            print(version)
             yield 3, int(match['minor']), int(match['patch'])
 
 
@@ -62,11 +59,49 @@ def filter_on_minor(versions, only_match):
             yield version
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Get the latest patch version of Python for a given minor version.')
     parser.add_argument('-v', dest='version', type=int, default=8, help='The minor version to look for. (default=8)')
 
     return parser.parse_args()
+
+
+def configure_logging(verbosity: int = 0) -> None:
+    """Configure logging.
+
+    Keyword Arguments:
+        verbosity (int):
+            Integer representing level of verbosity
+            Default: 0
+
+    Returns:
+        None
+    """
+    level = 'INFO' if verbosity == 0 else 'DEBUG'
+    config = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'console': {
+                'format': '%(levelname)-8s %(message)s'
+            }
+        },
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'level': level,
+                'formatter': 'console',
+            }
+        },
+        'loggers': {
+            'root': {
+                'level': level,
+                'handlers': ['console'],
+                'propagate': False
+            }
+        }
+    }
+    logging.config.dictConfig(config)
 
 
 def main(minor_version):
